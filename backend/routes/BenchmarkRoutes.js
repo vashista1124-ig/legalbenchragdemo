@@ -5,12 +5,11 @@ import { spawn } from "child_process";
 const router = express.Router();
 const upload = multer({ dest: "uploads/" });
 
-// POST /api/benchmarks/run
+
 router.post("/run", upload.single("file"), (req, res) => {
   const { chunking, embeddingModel, retriever } = req.body;
   const filePath = req.file.path;
 
-  // Call Python script with arguments
   const python = spawn("python3", [
     "backend/scripts/run_benchmark.py",
     filePath,
